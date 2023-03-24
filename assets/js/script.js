@@ -31,7 +31,7 @@ var getCityWeather = function (city) {
           console.log(data);
           var lat = data[0].lat;
           var lon = data[0].lon;
-          var weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=ed71e37a2dd2bda931147d3d759a0f6f';
+          var weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=ed71e37a2dd2bda931147d3d759a0f6f';
           fetch(weatherApiUrl)
             .then(function (response) {
               if (response.ok) {
@@ -60,11 +60,35 @@ var getCityWeather = function (city) {
 var displayWeather = function (weatherData) {
   console.log(weatherData.city.name);
   console.log(weatherData.city.country);
-  console.log(dayjs.unix(weatherData.list[0].dt).format('DD/MM/YYYY'));
-  console.log(dayjs.unix(weatherData.list[8].dt).format('DD/MM/YYYY'));
-  console.log(dayjs.unix(weatherData.list[16].dt).format('DD/MM/YYYY'));
-  console.log(dayjs.unix(weatherData.list[24].dt).format('DD/MM/YYYY'));
-  console.log(dayjs.unix(weatherData.list[32].dt).format('DD/MM/YYYY'));
+  console.log("Date: ", dayjs.unix(weatherData.list[0].dt).format('DD/MM/YYYY'));
+  console.log("Temp: ", weatherData.list[0].main.temp + "°C");
+  console.log("Feels like: ", weatherData.list[0].main.feels_like + "°C");
+  console.log("Wind Speed: ", weatherData.list[0].wind.speed + " KMH");
+  console.log("Humidity: ", weatherData.list[0].main.humidity + "%");
+
+  console.log("Date: ", dayjs.unix(weatherData.list[8].dt).format('DD/MM/YYYY'));
+  console.log("Temp: ", weatherData.list[8].main.temp + "°C");
+  console.log("Feels like: ", weatherData.list[8].main.feels_like + "°C");
+  console.log("Wind Speed: ", weatherData.list[8].wind.speed + " KMH");
+  console.log("Humidity: ", weatherData.list[8].main.humidity + "%");
+
+  console.log("Date: ", dayjs.unix(weatherData.list[16].dt).format('DD/MM/YYYY'));
+  console.log("Temp: ", weatherData.list[16].main.temp + "°C");
+  console.log("Feels like: ", weatherData.list[16].main.feels_like + "°C");
+  console.log("Wind Speed: ", weatherData.list[16].wind.speed + " KMH");
+  console.log("Humidity: ", weatherData.list[16].main.humidity + "%");
+
+  console.log("Date: ", dayjs.unix(weatherData.list[24].dt).format('DD/MM/YYYY'));
+  console.log("Temp: ", weatherData.list[24].main.temp + "°C");
+  console.log("Feels like: ", weatherData.list[24].main.feels_like + "°C");
+  console.log("Wind Speed: ", weatherData.list[24].wind.speed + " KMH");
+  console.log("Humidity: ", weatherData.list[24].main.humidity + "%");
+
+  console.log("Date: ", dayjs.unix(weatherData.list[32].dt).format('DD/MM/YYYY'));
+  console.log("Temp: ", weatherData.list[32].main.temp + "°C");
+  console.log("Feels like: ", weatherData.list[32].main.feels_like + "°C");
+  console.log("Wind Speed: ", weatherData.list[32].wind.speed + " KMH");
+  console.log("Humidity: ", weatherData.list[32].main.humidity + "%");
   };
 
 locationFormEl.addEventListener('submit', formSubmitHandler);
