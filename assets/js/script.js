@@ -12,15 +12,44 @@ var formSubmitHandler = function (event) {
 
   if (city) {
     getCityWeather(city);
-    forecastContainerEl.textContent = '';
-    weekForecastContainerEl.textContent = '';
     cityInputEl.value = '';
+    saveSearch(city);
   } else {
     alert('Please enter a City');
   }
 };
 
+var saveSearch = function(city) {
+  var searches = JSON.parse(localStorage.getItem('searches')) || [];
+  if (!searches.includes(city)) {
+    searches.push(city);
+    localStorage.setItem('searches', JSON.stringify(searches));
+    createSearchHistoryBtn(city);
+  }
+};
+
+var createSearchHistoryBtn = function(city) {
+  var btnEl = document.createElement('button');
+  btnEl.textContent = city;
+  btnEl.classList.add('btn', 'btn-secondary', 'm-1');
+  btnEl.addEventListener('click', function() {
+    getCityWeather(city);
+  });
+  searchHistoryEl.appendChild(btnEl);
+};
+
+var loadSearchHistory = function() {
+  var searches = JSON.parse(localStorage.getItem('searches')) || [];
+  for (var i = searches.length - 1; i >= 0; i--) {
+    createSearchHistoryBtn(searches[i]);
+  }
+};
+
 var getCityWeather = function (city) {
+  //clear containers 
+  todayForecastContainerEl.innerHTML = '';
+  weekForecastContainerEl.innerHTML = '';
+
   var geoApiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=ed71e37a2dd2bda931147d3d759a0f6f';
 
   fetch(geoApiUrl)
@@ -64,7 +93,8 @@ var displayTodaysWeather = function (weatherData) {
   // City name & date
   var todayHeadingEl = document.createElement("h4");
   todayHeadingEl.textContent = weatherData.city.name + ", " + dayjs.unix(weatherData.list[0].dt).format('DD/MM/YYYY');
-  todayForecastContainerEl.appendChild(todayHeadingEl);
+  todayForecastContainerEl.appendChild(todayHeadingEl
+);
 
   // Today's temp
   var todayTempEl = document.createElement("p");
@@ -218,3 +248,4 @@ var displayWeeksWeather = function (weatherData) {
 };
 
 locationFormEl.addEventListener('submit', formSubmitHandler);
+loadSearchHistory();
