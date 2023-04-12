@@ -50,7 +50,7 @@ var getCityWeather = function (city) {
   todayForecastContainerEl.innerHTML = '';
   weekForecastContainerEl.innerHTML = '';
 
-  var geoApiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=ed71e37a2dd2bda931147d3d759a0f6f';
+  var geoApiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=ed71e37a2dd2bda931147d3d759a0f6f';
 
   fetch(geoApiUrl)
     .then(function (response) {
